@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StartupAI — Predict Your Startup Success</title>
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    
+
+</head>
+
+<body>
+
+    <!-- ===================== NAVBAR ===================== -->
+    <header class="topbar">
+        <div class="brand">StartupAI</div>
+
+        <nav class="nav">
+            <a href="features.html">Features</a>
+            <a href="analysis.html">How It Works</a>
+        </nav>
+
+        <div class="actions">
+            <!-- Login Button -->
+            <button id="openGoogle" class="btn ghost">Login with Google</button>
+
+            <!-- User Profile Section -->
+            <div id="userSection" class="user-section hidden">
+                <img id="userPhoto" class="user-photo" src="" alt="User">
+                <div id="userDropdown" class="dropdown hidden">
+                    <div id="userName" class="dropdown-name"></div>
+                    <div id="userEmail" class="dropdown-email"></div>
+
+                    <a href="my-reports.html">
+                        <button class="dropdown-item">My Reports</button>
+                    </a>
+
+                    <button id="logoutBtn" class="dropdown-item danger">Logout</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+
+    <!-- ===================== HERO SECTION ===================== -->
+    <main>
+        <section class="hero">
+            <div class="hero-badge">⚡ AI-Powered Startup Analysis</div>
+
+            <h1 class="hero-title">
+                Predict Your Startup's <span>Success</span>
+            </h1>
+
+            <p class="hero-sub">
+                Get AI-powered insights on market demand, competition, and feasibility. 
+                Identify weaknesses and receive actionable recommendations to improve your chances.
+            </p>
+
+            <div class="hero-ctas">
+                <button class="pill" id="openFast">⚡ Fast Analysis</button>
+                <button class="pill" id="openDeep">🎯 Deep Analysis →</button>
+            </div>
+        </section>
+
+
+
+
+
+        <!-- ===================== FEATURE SECTION ===================== -->
+        <section class="features-intro">
+            <h2>Everything You Need to Validate Your Idea</h2>
+            <p>Our AI analyzes multiple dimensions of your startup to give you a full feasibility report.</p>
+
+            <div class="feature-grid">
+
+                <article class="feature">
+                    <div class="icon">🧠</div>
+                    <h3>AI-Powered Insights</h3>
+                    <p>ML engine compares your idea to thousands of winning patterns.</p>
+                </article>
+
+                <article class="feature">
+                    <div class="icon">📈</div>
+                    <h3>Market Intelligence</h3>
+                    <p>Understand demand, timing, and emerging trends.</p>
+                </article>
+
+                <article class="feature">
+                    <div class="icon">🎯</div>
+                    <h3>Competitive Mapping</h3>
+                    <p>Identify strengths and weaknesses against competitors.</p>
+                </article>
+
+                <article class="feature">
+                    <div class="icon">📊</div>
+                    <h3>Feasibility Score</h3>
+                    <p>Get a score showing how strong your idea is.</p>
+                </article>
+
+                <article class="feature">
+                    <div class="icon">🛡️</div>
+                    <h3>Risk Assessment</h3>
+                    <p>Find potential blockers before they slow you down.</p>
+                </article>
+
+                <article class="feature">
+                    <div class="icon">💡</div>
+                    <h3>Actionable Suggestions</h3>
+                    <p>Instant improvements to increase your chances of success.</p>
+                </article>
+
+            </div>
+        </section>
+
+
+
+
+
+        <!-- ===================== ANALYSIS CHOOSER ===================== -->
+        <section id="analysisSection" class="analysis-chooser">
+            <h2>Choose Your Analysis Mode</h2>
+            <p>Quick or deep — choose your preferred evaluation type.</p>
+
+            <div class="cards">
+                <!-- Fast -->
+                <div class="card" data-mode="fast">
+                    <div class="card-icon">⚡</div>
+                    <h3>Fast Analysis</h3>
+                    <p class="muted">Quick snapshot based on core idea details.</p>
+
+                    <ul>
+                        <li>Idea description</li>
+                        <li>Target market</li>
+                        <li>Problem & solution</li>
+                        <li>Industry</li>
+                    </ul>
+
+                    <button class="start" data-mode="fast">Start Fast Analysis →</button>
+                </div>
+
+                <!-- Deep -->
+                <div class="card recommended" data-mode="deep">
+                    <div class="badge">Recommended</div>
+                    <div class="card-icon">🎯</div>
+                    <h3>Deep Analysis</h3>
+                    <p class="muted">Full-scale report with in-depth business evaluation.</p>
+
+                    <ul>
+                        <li>Everything in Fast</li>
+                        <li>Business model</li>
+                        <li>Competition insights</li>
+                        <li>Team evaluation</li>
+                        <li>Market timing</li>
+                        <li>Go-to-market strategy</li>
+                    </ul>
+
+                    <button class="start" data-mode="deep">Start Deep Analysis →</button>
+                </div>
+            </div>
+        </section>
+
+
+
+        <!-- ===================== HISTORY ===================== -->
+        <section class="history-section">
+            <h3>Your Recent Analyses</h3>
+            <div id="historyList" class="history-list"></div>
+        </section>
+
+
+
+        <!-- ===================== FOOTER ===================== -->
+        <footer class="foot">
+            Made with ❤️ by team Vibranium — AI for founders.
+        </footer>
+    </main>
+
+
+
+
+    <!-- ===================== MODAL ===================== -->
+    <div id="inputModal" class="modal hidden">
+        <div class="modal-card">
+
+            <button id="closeModal" class="modal-close">✕</button>
+
+            <h2 id="modalTitle">Start Analysis</h2>
+
+            <input id="name" placeholder="Startup name">
+            <input id="pitch" placeholder="One-line pitch">
+
+            <textarea id="description"
+                      placeholder="Describe the problem, solution & product"
+                      rows="4"></textarea>
+
+            <select id="industry">
+                <option value="">Industry (optional)</option>
+                <option value="Fintech">Fintech</option>
+                <option value="SaaS">SaaS</option>
+                <option value="Healthcare">Healthcare</option>
+                <option value="Education">Education</option>
+                <option value="E-commerce">E-commerce</option>
+            </select>
+
+            <div style="display:flex; gap:8px">
+                <button id="analyzeBtn" class="btn primary">Analyze</button>
+                <button id="cancelBtn" class="btn ghost">Cancel</button>
+            </div>
+
+            <div id="formStatus" class="muted" style="margin-top:10px"></div>
+        </div>
+    </div>
+
+
+    <!-- ===================== JS ===================== -->
+    <script src="script.js"></script>
+
+</body>
+</html>

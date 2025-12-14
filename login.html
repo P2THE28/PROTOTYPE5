@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login — StartupAI</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="script.js"></script>
+
+</head>
+
+<body>
+
+  <!-- ===================== LOGIN CONTAINER ===================== -->
+  <main style="min-height:100vh;display:flex;align-items:center;justify-content:center;">
+    <div class="modal-card" style="max-width:420px;text-align:center;">
+      <h2 style="margin-bottom:10px;">Welcome to <span style="color:#7f3bf0">StartupAI</span></h2>
+      <p class="muted" style="margin-bottom:24px;">
+        Login using Google to continue exploring AI-powered startup analysis.
+      </p>
+
+      <button id="googleLoginBtn" class="btn primary" style="width:100%;padding:14px;">
+        Continue with Google
+      </button>
+
+      <p class="muted small" style="margin-top:16px;">
+        We do not post anything on your behalf.
+      </p>
+
+      <div id="loginStatus" class="muted small" style="margin-top:10px;"></div>
+    </div>
+  </main>
+
+  <!-- ===================== SCRIPT ===================== -->
+  <script>
+    /* Firebase Config */
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT.firebaseapp.com",
+      projectId: "YOUR_PROJECT",
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    /* Login Handler */
+    document.getElementById("googleLoginBtn").onclick = async () => {
+      try {
+        document.getElementById("loginStatus").innerText = "Signing in...";
+
+        const provider = new firebase.auth.GoogleAuthProvider();
+        const result = await auth.signInWithPopup(provider);
+        const token = await result.user.getIdToken();
+
+        await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ token }),
+        });
+
+        document.getElementById("loginStatus").innerText = "Login successful! Redirecting...";
+        setTimeout(() => location.href = "/", 1200);
+
+      } catch (err) {
+        document.getElementById("loginStatus").innerText = "Login failed. Try again.";
+        console.error(err);
+      }
+    };
+  </script>
+
+</body>
+
+</html>

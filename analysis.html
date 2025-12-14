@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StartupAI — Analysis</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+</head>
+
+<body>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <header class="topbar">
+    <div class="brand" onclick="location.href='/'" style="cursor: pointer;">StartupAI</div>
+
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="features.html">Features</a>
+      <a href="analysis.html" class="active">Analysis</a>
+    </nav>
+
+    <div class="actions">
+      <!-- User Profile -->
+      <div id="userSection" class="user-section hidden">
+        <img id="userPhoto" class="user-photo" src="" alt="Profile" />
+        <div id="userDropdown" class="dropdown hidden">
+          <div id="userName" class="dropdown-name"></div>
+          <div id="userEmail" class="dropdown-email"></div>
+          <button class="dropdown-item" onclick="location.href='my-reports.html'">My Reports</button>
+          <button class="dropdown-item danger" onclick="handleLogout()">Logout</button>
+        </div>
+      </div>
+
+      <!-- Login Button -->
+      <button id="openGoogle" class="ghost">Login with Google</button>
+    </div>
+  </header>
+
+
+  <!-- ===================== PAGE CONTENT ===================== -->
+  <main>
+    <section class="hero">
+      <div class="hero-badge">📊 AI Startup Evaluation</div>
+      <h1 class="hero-title">Your <span>Analysis Dashboard</span></h1>
+      <p class="hero-sub">
+        Choose an analysis mode to evaluate your startup. Fast for quick insights.
+        Deep for complete feasibility & prediction.
+      </p>
+
+      <div class="hero-ctas">
+        <button class="btn pill" id="openFast">⚡ Start Fast Analysis</button>
+        <button class="btn pill" id="openDeep">🎯 Start Deep Analysis</button>
+      </div>
+    </section>
+
+
+    <section class="analysis-chooser">
+      <h2>Choose Your Analysis Type</h2>
+      <p>AI-powered startup evaluation based on thousands of patterns.</p>
+
+      <div class="cards">
+
+        <!-- FAST ANALYSIS -->
+        <div class="card" data-mode="fast">
+          <div class="card-icon">⚡</div>
+          <h3>Fast Analysis</h3>
+          <p class="muted">Quick evaluation for early-stage ideas</p>
+
+          <ul>
+            <li>Startup idea overview</li>
+            <li>Problem statement</li>
+            <li>Target audience</li>
+            <li>Industry identification</li>
+          </ul>
+
+          <button class="btn large start" data-mode="fast">
+            Start Fast Analysis →
+          </button>
+        </div>
+
+        <!-- DEEP ANALYSIS -->
+        <div class="card recommended" data-mode="deep">
+          <div class="badge">Recommended</div>
+          <div class="card-icon">🎯</div>
+          <h3>Deep Analysis</h3>
+          <p class="muted">Complete in-depth evaluation for founders</p>
+
+          <ul>
+            <li>Everything in Fast Analysis</li>
+            <li>Business model breakdown</li>
+            <li>Competitive mapping</li>
+            <li>Financial projection logic</li>
+            <li>Market timing</li>
+            <li>Growth potential</li>
+          </ul>
+
+          <button class="btn large start" data-mode="deep">
+            Start Deep Analysis →
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="history-section">
+      <h3>Your Recent Analyses</h3>
+      <div id="historyList" class="history-list"></div>
+    </section>
+
+    <footer class="foot">
+      Made with ❤️ by team Vibranium — AI for founders.
+    </footer>
+  </main>
+
+
+  <!-- ===================== ANALYSIS MODAL ===================== -->
+  <div id="inputModal" class="modal hidden">
+    <div class="modal-card">
+      <button id="closeModal" class="modal-close">✕</button>
+      <h2 id="modalTitle">Start Analysis</h2>
+
+      <input id="name" placeholder="Startup / Project name" />
+      <input id="pitch" placeholder="One-line pitch (what you do)" />
+      <textarea id="description" placeholder="Describe the problem & solution"></textarea>
+
+      <select id="industry">
+        <option value="">Industry (optional)</option>
+        <option>Fintech</option>
+        <option>Healthcare</option>
+        <option>Education</option>
+        <option>SaaS</option>
+        <option>Other</option>
+      </select>
+
+      <div style="display:flex;gap:10px;">
+        <button id="analyzeBtn" class="btn primary">Analyze</button>
+        <button id="cancelBtn" class="btn ghost">Cancel</button>
+      </div>
+
+      <div id="formStatus" class="muted small" style="margin-top:10px;"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

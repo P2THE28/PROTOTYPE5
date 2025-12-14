@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>StartupAI — Features</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+</head>
+
+<body>
+  <!-- ===================== NAVBAR ===================== -->
+  <header class="topbar">
+    <div class="brand" onclick="location.href='/'" style="cursor:pointer">StartupAI</div>
+
+    <nav class="nav">
+      <a href="/">Home</a>
+      <a href="features.html" class="active">Features</a>
+      <a href="analysis.html">Analysis</a>
+    </nav>
+
+    <div class="actions">
+      <!-- User Profile Section -->
+      <div id="userSection" class="user-section hidden">
+        <img id="userPhoto" class="user-photo" src="" alt="Profile" />
+        <div id="userDropdown" class="dropdown hidden">
+          <div id="userName" class="dropdown-name"></div>
+          <div id="userEmail" class="dropdown-email"></div>
+          <button class="dropdown-item" onclick="location.href='my-reports.html'">My Reports</button>
+          <button id="logoutBtn" class="dropdown-item danger" onclick="handleLogout()">Logout</button>
+        </div>
+      </div>
+
+      <!-- Login Button -->
+      <button id="openGoogle" class="ghost">Login with Google</button>
+    </div>
+  </header>
+
+  <!-- ===================== PAGE CONTENT ===================== -->
+  <main>
+    <section class="hero">
+      <div class="hero-badge">🚀 Powerful AI Features</div>
+      <h1 class="hero-title">Explore Everything <span>StartupAI</span> Can Do</h1>
+      <p class="hero-sub">
+        From fast startup evaluations to deep market insights — our AI gives you
+        everything you need to build smarter.
+      </p>
+    </section>
+
+    <section class="features-intro">
+      <h2>Our Core Features</h2>
+      <p>Designed for founders, startups, and innovators.</p>
+
+      <div class="feature-grid">
+        <article class="feature">
+          <div class="icon">⚡</div>
+          <h3>Fast Analysis</h3>
+          <p>Get a rapid AI-powered evaluation of your startup idea in seconds.</p>
+        </article>
+
+        <article class="feature">
+          <div class="icon">🎯</div>
+          <h3>Deep Analysis</h3>
+          <p>Detailed market, competition, risk, and feasibility assessment.</p>
+        </article>
+
+        <article class="feature">
+          <div class="icon">📈</div>
+          <h3>Market Insights</h3>
+          <p>AI analyzes industry trends to give you a strategic edge.</p>
+        </article>
+
+        <article class="feature">
+          <div class="icon">🛡️</div>
+          <h3>Risk Detection</h3>
+          <p>Identify hidden risks before they impact your startup.</p>
+        </article>
+
+        <article class="feature">
+          <div class="icon">🤖</div>
+          <h3>ML-Driven Predictions</h3>
+          <p>Success forecasting based on thousands of successful patterns.</p>
+        </article>
+
+        <article class="feature">
+          <div class="icon">💡</div>
+          <h3>Actionable Recommendations</h3>
+          <p>Improve your idea instantly with AI-generated insights.</p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="foot">
+      Made with ❤️ by team Vibranium — AI for founders.
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
